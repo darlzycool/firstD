@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111016">
+  <meta name="description" content="FirstD is an original adult-oriented discovery site prototype with fictional, non-explicit demo listings.">
+  <title>FirstD — Find your next favorite</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="FirstD home"><span class="brand-mark">F</span>first<span class="accent">D</span></a>
+    <form class="search" id="search-form" role="search">
+      <label class="sr-only" for="search">Search the collection</label>
+      <input id="search" type="search" placeholder="Search videos, creators, tags..." autocomplete="off">
+      <button aria-label="Search" type="submit">⌕</button>
+    </form>
+    <button class="upload" id="upload-open" type="button"><span aria-hidden="true">＋</span> Upload</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot"></span> YOUR SPACE, YOUR PACE</p>
+        <h1>Find your<br><span class="accent">next favorite.</span></h1>
+        <p>A fresh way to explore. Made for curiosity, built around choice.</p>
+        <a class="hero-link" href="#discover">Explore the collection <span aria-hidden="true">↘</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="disc"></div><i>✦</i></div>
+      <div class="hero-note">A PLACE TO EXPLORE<br><span>AT YOUR OWN PACE</span></div>
+    </section>
+
+    <section id="discover" class="collection">
+      <div class="section-title">
+        <div><p class="eyebrow">CURATED FOR YOU</p><h2>Explore the collection</h2></div>
+        <label class="sort">Sort by
+          <select id="sort">
+            <option value="popular">Popular</option>
+            <option value="newest">Newest</option>
+            <option value="title">A–Z</option>
+          </select>
+        </label>
+      </div>
+      <nav id="categories" class="categories" aria-label="Filter by category">
+        <button class="chip active" aria-pressed="true" data-category="All">For you <span>08</span></button>
+        <button class="chip" aria-pressed="false" data-category="Atmosphere">Atmosphere</button>
+        <button class="chip" aria-pressed="false" data-category="Stories">Stories</button>
+        <button class="chip" aria-pressed="false" data-category="Lifestyle">Lifestyle</button>
+        <button class="chip" aria-pressed="false" data-category="Creators">Creators</button>
+        <button class="chip" aria-pressed="false" data-category="Wellness">Wellness</button>
+      </nav>
+      <div class="result-line"><span id="result-count" aria-live="polite"></span><span class="demo-tag">● DEMO LIBRARY</span></div>
+      <div class="grid" id="grid"></div>
+      <div class="empty" id="empty" hidden>
+        <span aria-hidden="true">⌕</span><h3>No matches this time</h3>
+        <p>Try another search or choose a different category.</p><button class="link-button" id="clear">Clear filters</button>
+      </div>
+    </section>
+
+    <section class="trust" aria-label="Community standards">
+      <div><span class="trust-icon">18+</span><p><strong>Adults only</strong><br>For viewers 18 and over.</p></div>
+      <div><span class="trust-icon">✓</span><p><strong>Consent comes first</strong><br>Verified consent for every real upload.</p></div>
+      <button class="outline-button" id="standards-open" type="button">Our safety standards <span>↗</span></button>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand footer-brand" href="#"><span class="brand-mark">F</span>first<span class="accent">D</span></a>
+    <p>Prototype only: fictional listings and non-explicit placeholder artwork. No videos are streamed.</p>
+    <div><button id="footer-standards" type="button">Safety &amp; consent</button><button id="footer-report" type="button">Report a concern</button></div>
+  </footer>
+
+  <div class="age-backdrop" id="age-gate" role="dialog" aria-modal="true" aria-labelledby="age-title">
+    <div class="age-card">
+      <a class="brand" href="#"><span class="brand-mark">F</span>first<span class="accent">D</span></a>
+      <div class="age-symbol">18<span>+</span></div>
+      <p class="eyebrow accent">A QUICK CHECK-IN</p>
+      <h2 id="age-title">A space for adults.</h2>
+      <p class="age-copy">This experience is for adults aged 18 or over. The demo contains fictional, non-explicit placeholder content only.</p>
+      <label class="age-check"><input id="age-check" type="checkbox"><span>I confirm I am at least 18 and legally allowed to view adult-oriented services where I live.</span></label>
+      <button class="primary" id="age-enter" type="button" disabled>Enter FirstD <span>→</span></button>
+      <button class="decline" id="age-decline" type="button">I am under 18</button>
+      <p class="age-exit">Not 18 yet? Please leave this site.</p>
+      <p class="age-privacy">Your choice is stored in this browser only.</p>
+    </div>
+  </div>
+
+  <div class="age-backdrop" id="blocked-gate" role="dialog" aria-modal="true" aria-labelledby="blocked-title" hidden>
+    <div class="age-card">
+      <a class="brand" href="#"><span class="brand-mark">F</span>first<span class="accent">D</span></a>
+      <div class="age-symbol">18<span>+</span></div>
+      <h2 id="blocked-title">This space is for adults.</h2>
+      <p class="age-copy">You need to confirm that you are 18 or over to continue.</p>
+      <button class="primary" id="return-age" type="button">Return to age check <span>→</span></button>
+    </div>
+  </div>
+
+  <dialog class="dialog video-dialog" id="video-dialog" aria-labelledby="detail-title">
+    <form method="dialog"><button class="close" aria-label="Close">×</button></form>
+    <div class="player" id="player"><span class="play-icon">▶</span><span class="player-label">NON-EXPLICIT DEMO PREVIEW</span></div>
+    <div class="detail">
+      <div class="detail-line"><span id="detail-category"></span><span id="detail-duration"></span></div>
+      <h2 id="detail-title"></h2><p id="detail-creator" class="detail-creator"></p>
+      <p id="detail-description" class="description"></p>
+      <div class="detail-actions"><button class="outline-button" id="detail-report" type="button">⚑ Report this listing</button><span>Sample listing · no media is streamed</span></div>
+    </div>
+  </dialog>
+
+  <dialog class="dialog form-dialog" id="report-dialog" aria-labelledby="report-title">
+    <form method="dialog"><button class="close" aria-label="Close">×</button></form>
+    <p class="eyebrow accent">COMMUNITY SAFETY</p><h2 id="report-title">Report a concern</h2>
+    <p class="intro">Tell us why this listing needs attention. Reports help keep a community safe.</p>
+    <form id="report-form">
+      <label for="report-reason">Reason for report</label>
+      <select id="report-reason" required>
+        <option value="">Choose a reason</option>
+        <option>Non-consensual or intimate content</option>
+        <option>Person may be under 18</option>
+        <option>Copyright or ownership concern</option>
+        <option>Misleading or harmful listing</option>
+        <option>Other safety concern</option>
+      </select>
+      <label for="report-details">Additional details <span>(optional)</span></label>
+      <textarea id="report-details" rows="3" maxlength="500" placeholder="Share only information relevant to your report."></textarea>
+      <p class="form-note">Prototype only: the report stays in your browser and is not sent to a moderation team.</p>
+      <button class="primary" type="submit">Submit demo report</button>
+    </form>
+  </dialog>
+
+  <dialog class="dialog form-dialog" id="upload-dialog" aria-labelledby="upload-title">
+    <form method="dialog"><button class="close" aria-label="Close">×</button></form>
+    <p class="eyebrow accent">CREATOR SAFETY</p><h2 id="upload-title">Before you share</h2>
+    <p class="intro">Uploads are not enabled in this prototype. Any future user-upload platform should require:</p>
+    <ul class="standards-list">
+      <li><strong>Everyone depicted is 18+.</strong> Reliably verify age before publication.</li>
+      <li><strong>Documented informed consent</strong> from every person shown, including permission to distribute.</li>
+      <li><strong>Ownership or a valid license</strong> for every submitted work.</li>
+      <li><strong>Clear, prompt reporting and takedown</strong> for illegal or non-consensual content.</li>
+    </ul>
+    <p class="form-note">This demo does not accept, store, or publish uploads. A real service needs robust age and consent checks plus staffed moderation before launch.</p>
+    <button class="primary" id="upload-close" type="button">I understand</button>
+  </dialog>
+
+  <dialog class="dialog form-dialog" id="standards-dialog" aria-labelledby="standards-title">
+    <form method="dialog"><button class="close" aria-label="Close">×</button></form>
+    <p class="eyebrow accent">FIRSTD COMMUNITY</p><h2 id="standards-title">Safety, consent &amp; reporting</h2>
+    <p class="intro">A responsible user-upload platform puts people first. This prototype is designed around these standards:</p>
+    <ul class="standards-list">
+      <li><strong>Adults only:</strong> verify age for all creators and everyone depicted; no minors, ever.</li>
+      <li><strong>Explicit consent:</strong> documented permission to record and distribute from every person depicted.</li>
+      <li><strong>Respect ownership:</strong> uploaders own or have permission to publish submissions.</li>
+      <li><strong>Easy reporting:</strong> clear, accessible channels for urgent safety and takedown concerns.</li>
+      <li><strong>Active moderation:</strong> trained human review, timely escalation, and transparent decisions.</li>
+    </ul>
+    <p class="form-note">No uploads, real videos, or moderation backend are connected to this demo.</p>
+    <button class="primary" id="standards-close" type="button">Got it</button>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
