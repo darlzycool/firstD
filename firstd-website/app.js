@@ -165,3 +165,39 @@ $("#report-form").addEventListener("submit", (event) => {
 });
 
 render();
+
+
+// Demo-only sign-in UI. No credential is sent to a server or persisted.
+const loginDialog = $("#login-dialog");
+const loginForm = $("#login-form");
+const loginOpen = $("#login-open");
+const logoutButton = $("#logout");
+function syncDemoSession() {
+  let email = "";
+  try { email = sessionStorage.getItem("firstd-demo-user") || ""; } catch {}
+  loginOpen.hidden = Boolean(email);
+  logoutButton.hidden = !email;
+  loginOpen.setAttribute("aria-label", email ? `Signed in as ${email}` : "Log in");
+}
+loginOpen.addEventListener("click", () => loginDialog.showModal());
+loginForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (!loginForm.reportValidity()) return;
+  const email = $("#login-email").value.trim();
+  try { sessionStorage.setItem("firstd-demo-user", email); } catch {}
+  $("#login-password").value = "";
+  loginDialog.close();
+  syncDemoSession();
+  showToast("Demo session started. This is not a verified account.");
+});
+logoutButton.addEventListener("click", () => {
+  try { sessionStorage.removeItem("firstd-demo-user"); } catch {}
+  syncDemoSession();
+  showToast("Signed out of this demo.");
+});
+syncDemoSession();
+
+// Register the service worker when served from HTTPS or localhost.
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js").catch(() => {}));
+}
