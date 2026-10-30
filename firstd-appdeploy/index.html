@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FirstD — Find your next favorite</title>
+    <meta
+      name="description"
+      content="Explore FirstD's fictional demo library, with account-backed profiles and reports."
+    />
+    <meta name="theme-color" content="#111016" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/resources/firstd.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="FirstD home"
+        ><span class="brand-mark">F</span>first<span class="accent">D</span></a
+      >
+      <form class="search" id="search-form" role="search">
+        <label class="sr-only" for="search">Search the collection</label>
+        <input
+          id="search"
+          type="search"
+          placeholder="Search videos, creators, tags..."
+          autocomplete="off"
+        />
+        <button aria-label="Search" type="submit">⌕</button>
+      </form>
+      <div class="account-actions">
+        <button class="account-button" id="login-open" type="button">
+          Log in</button
+        ><button class="account-button" id="account-open" type="button" hidden>
+          Account</button
+        ><button
+          class="account-button signed-in"
+          id="logout"
+          type="button"
+          hidden
+        >
+          Sign out</button
+        ><button class="upload" id="upload-open" type="button">
+          <span aria-hidden="true">＋</span> Upload
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="status-dot"></span> YOUR SPACE, YOUR PACE
+          </p>
+          <h1>Find your<br /><span class="accent">next favorite.</span></h1>
+          <p>
+            A fresh way to explore. Made for curiosity, built around choice.
+          </p>
+          <a class="hero-link" href="#discover"
+            >Explore the collection <span aria-hidden="true">↘</span></a
+          >
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="disc"></div>
+          <i>✦</i>
+        </div>
+        <div class="hero-note">
+          A PLACE TO EXPLORE<br /><span>AT YOUR OWN PACE</span>
+        </div>
+      </section>
+
+      <section id="discover" class="collection">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">CURATED FOR YOU</p>
+            <h2>Explore the collection</h2>
+          </div>
+          <label class="sort"
+            >Sort by
+            <select id="sort">
+              <option value="popular">Popular</option>
+              <option value="newest">Newest</option>
+              <option value="title">A–Z</option>
+            </select>
+          </label>
+        </div>
+        <nav id="categories" class="categories" aria-label="Filter by category">
+          <button class="chip active" aria-pressed="true" data-category="All">
+            For you <span>08</span>
+          </button>
+          <button class="chip" aria-pressed="false" data-category="Atmosphere">
+            Atmosphere
+          </button>
+          <button class="chip" aria-pressed="false" data-category="Stories">
+            Stories
+          </button>
+          <button class="chip" aria-pressed="false" data-category="Lifestyle">
+            Lifestyle
+          </button>
+          <button class="chip" aria-pressed="false" data-category="Creators">
+            Creators
+          </button>
+          <button class="chip" aria-pressed="false" data-category="Wellness">
+            Wellness
+          </button>
+        </nav>
+        <div class="result-line">
+          <span id="result-count" aria-live="polite"></span
+          ><span class="demo-tag">● DEMO LIBRARY</span>
+        </div>
+        <div class="grid" id="grid"></div>
+        <div class="empty" id="empty" hidden>
+          <span aria-hidden="true">⌕</span>
+          <h3>No matches this time</h3>
+          <p>Try another search or choose a different category.</p>
+          <button class="link-button" id="clear">Clear filters</button>
+        </div>
+      </section>
+
+      <section class="trust" aria-label="Community standards">
+        <div>
+          <span class="trust-icon">18+</span>
+          <p><strong>Adults only</strong><br />For viewers 18 and over.</p>
+        </div>
+        <div>
+          <span class="trust-icon">✓</span>
+          <p>
+            <strong>Consent comes first</strong><br />Verified consent for every
+            real upload.
+          </p>
+        </div>
+        <button class="outline-button" id="standards-open" type="button">
+          Our safety standards <span>↗</span>
+        </button>
+      </section>
+    </main>
+
+    <footer>
+      <a class="brand footer-brand" href="#"
+        ><span class="brand-mark">F</span>first<span class="accent">D</span></a
+      >
+      <p>
+        Prototype only: fictional listings and non-explicit placeholder artwork.
+        No videos are streamed.
+      </p>
+      <div>
+        <button id="footer-standards" type="button">Safety &amp; consent</button
+        ><button id="footer-report" type="button">Report a concern</button>
+      </div>
+    </footer>
+
+    <dialog
+      class="dialog form-dialog"
+      id="account-dialog"
+      aria-labelledby="account-title"
+    >
+      <form method="dialog">
+        <button class="close" aria-label="Close">×</button>
+      </form>
+      <p class="eyebrow accent">YOUR FIRSTD ACCOUNT</p>
+      <h2 id="account-title">Account</h2>
+      <p class="intro" id="account-email">Signed in to FirstD</p>
+      <form id="profile-form">
+        <label for="profile-name">Display name</label>
+        <input
+          id="profile-name"
+          type="text"
+          maxlength="80"
+          required
+          autocomplete="nickname"
+        />
+        <button class="primary" type="submit">Save profile</button>
+      </form>
+      <section class="account-reports" aria-labelledby="reports-title">
+        <h3 id="reports-title">My reports</h3>
+        <ul id="report-list">
+          <li>Sign in to view your reports.</li>
+        </ul>
+      </section>
+    </dialog>
+
+    <div
+      class="age-backdrop"
+      id="age-gate"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="age-title"
+    >
+      <div class="age-card">
+        <a class="brand" href="#"
+          ><span class="brand-mark">F</span>first<span class="accent"
+            >D</span
+          ></a
+        >
+        <div class="age-symbol">18<span>+</span></div>
