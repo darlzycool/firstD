@@ -1,0 +1,67 @@
+[
+  {
+    "name": "Sign in, update a profile, and keep it after reload",
+    "sanity": true,
+    "viewport": "desktop",
+    "covers": [
+      "AppDeploy sign-in and token restoration",
+      "profile creation and update",
+      "profile persistence after reload"
+    ],
+    "description": "Verifies authenticated users can create and retain their own display name.",
+    "steps": [
+      "Confirm the site's 18+ check in the test browser",
+      "Open Log in and complete sign-in with a test account",
+      "Open Account, set the display name to FirstD Tester, and save",
+      "Reload the page, reopen Account, and check the display name"
+    ],
+    "expected": "FirstD Tester appears in the profile after the reload and the account remains signed in."
+  },
+  {
+    "name": "Submit a report and see it in account history",
+    "viewport": "desktop",
+    "covers": [
+      "authenticated report submission",
+      "database persistence",
+      "report history read"
+    ],
+    "setup": ["Sign in with a test account"],
+    "description": "Verifies a listing report is stored and remains visible to its submitting account.",
+    "steps": [
+      "Open a listing and choose Report this listing",
+      "Select a reason and enter a short test detail",
+      "Submit the report, then open Account",
+      "Reload and open Account again"
+    ],
+    "expected": "The report appears in My reports after submission and still appears after reload."
+  },
+  {
+    "name": "Keep reports isolated between accounts",
+    "viewport": "desktop",
+    "covers": ["user-scoped report table", "cross-account privacy"],
+    "description": "Verifies a different signed-in account cannot see another user's reports.",
+    "steps": [
+      "Actor A signs in and submits a report for a listing",
+      "Actor A signs out",
+      "Actor B signs in with a different test account and opens Account"
+    ],
+    "expected": "Actor B's My reports list does not contain Actor A's report."
+  },
+  {
+    "name": "Block anonymous reports and preserve discovery search",
+    "viewport": "mobile",
+    "covers": [
+      "anonymous report guardrail",
+      "report validation",
+      "search and listing flow"
+    ],
+    "description": "Verifies discovery still works and report persistence requires an authenticated account.",
+    "steps": [
+      "Confirm the site's 18+ check in the test browser",
+      "Search for water and verify one listing appears",
+      "Sign out, open a listing, and choose Report this listing",
+      "Try to submit a report without signing in"
+    ],
+    "expected": "Search shows the matching listing; anonymous report submission is not sent and the user is prompted to sign in."
+  }
+]
