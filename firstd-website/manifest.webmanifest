@@ -1,0 +1,18 @@
+{
+  "name": "FirstD",
+  "short_name": "FirstD",
+  "description": "A fictional demo discovery experience.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#111016",
+  "theme_color": "#111016",
+  "icons": [
+    {
+      "src": "icons/firstd.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
