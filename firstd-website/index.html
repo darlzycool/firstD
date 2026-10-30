@@ -4,6 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#111016">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/firstd.svg" type="image/svg+xml">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="FirstD">
   <meta name="description" content="FirstD is an original adult-oriented discovery site prototype with fictional, non-explicit demo listings.">
   <title>FirstD — Find your next favorite</title>
   <link rel="stylesheet" href="styles.css">
@@ -17,7 +22,7 @@
       <input id="search" type="search" placeholder="Search videos, creators, tags..." autocomplete="off">
       <button aria-label="Search" type="submit">⌕</button>
     </form>
-    <button class="upload" id="upload-open" type="button"><span aria-hidden="true">＋</span> Upload</button>
+    <div class="account-actions"><button class="account-button" id="login-open" type="button">Log in</button><button class="account-button signed-in" id="logout" type="button" hidden>Sign out</button><button class="upload" id="upload-open" type="button"><span aria-hidden="true">＋</span> Upload</button></div>
   </header>
 
   <main>
@@ -71,6 +76,20 @@
     <p>Prototype only: fictional listings and non-explicit placeholder artwork. No videos are streamed.</p>
     <div><button id="footer-standards" type="button">Safety &amp; consent</button><button id="footer-report" type="button">Report a concern</button></div>
   </footer>
+
+  <dialog class="dialog form-dialog auth-dialog" id="login-dialog" aria-labelledby="login-title">
+    <form method="dialog"><button class="close" aria-label="Close">×</button></form>
+    <p class="eyebrow accent">WELCOME BACK</p><h2 id="login-title">Log in to FirstD</h2>
+    <p class="intro">Demo only. This prototype does not verify accounts or send credentials to a server.</p>
+    <form id="login-form">
+      <label for="login-email">Email</label>
+      <input id="login-email" type="email" autocomplete="username" required placeholder="you@example.com">
+      <label for="login-password">Password</label>
+      <input id="login-password" type="password" autocomplete="current-password" required minlength="1" placeholder="Any value for this demo">
+      <p class="form-note">Your password is used only to complete this demo form. It is not stored or transmitted.</p>
+      <button class="primary" type="submit">Continue <span>→</span></button>
+    </form>
+  </dialog>
 
   <div class="age-backdrop" id="age-gate" role="dialog" aria-modal="true" aria-labelledby="age-title">
     <div class="age-card">
